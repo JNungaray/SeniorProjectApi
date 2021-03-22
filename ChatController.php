@@ -1,9 +1,9 @@
 <?php
 require './setup.php';
 
+$action = "";
 $_POST = json_decode(file_get_contents("php://input"),true);
 
-$action = "";
 if (array_key_exists('action', $_POST))
 {
     $action = $_POST['action'];

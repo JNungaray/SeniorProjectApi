@@ -4,7 +4,7 @@
     define("USERNAME", "root");
     define("PASSWORD", "root");
 
-    header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Origin: *");
 
 function encrypt($plainText) {
     $secretKey = md5("njkq23ro900efdiovnq43rq09234nqkdf0023");

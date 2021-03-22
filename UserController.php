@@ -1,5 +1,4 @@
 <?php
-
 require './setup.php';
 
 $action = "";
@@ -164,6 +163,33 @@ else if ($action == "register")
             'message' => 'User created'
         ],
         "data" => []
+    ];
+}
+else if ($action == 'search') {
+    $term = $_POST['term'];
+    $id = $_POST['id'];
+
+    $sql = "SELECT username, id FROM user WHERE username LIKE ? AND id != ?";
+    $stmt = $conn->prepare($sql);
+    $searchterm = '%' . $term . '%';
+    $stmt->bind_param("si", $searchterm, $id);
+    $stmt->execute();
+
+    $data = $stmt->get_result();
+    $users = [];
+    while($row = $data->fetch_assoc()) {
+        $users[] = [
+            'username' => $row['username'],
+            'id' => $row['id']
+        ];
+    }
+
+    $result = [
+        "status" => [ 
+            'code' => 200,
+            'message' => 'search done'
+        ],
+        "data" => $users
     ];
 }
 
