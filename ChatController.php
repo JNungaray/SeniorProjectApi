@@ -106,7 +106,7 @@ else if ($action == "getMessages")
         $messages[] = [
             "from" => $row['from_id'],
             "to" => $row['to_id'],
-            "message" => $row['message']
+            "message" => decrypt($row['message'])
         ];
     }
     $stmt->close();
@@ -131,7 +131,7 @@ else if ($action == "sendMessage")
 
     $sql = "INSERT INTO chat (message, from_id, to_id) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sii", $message, $id, $other_id);
+    $stmt->bind_param("sii", encrypt($message), $id, $other_id);
     $stmt->execute();
 
     $stmt->close();
